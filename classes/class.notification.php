@@ -64,7 +64,7 @@ class TDT_Notification {
                 }
             }
         }
-        printf('<script>const TDT_Notification_Content = [%s];</script>', $this->notification_contentjs);
+        printf('<script>const tdt_notification_content = [%s];</script>', $this->notification_contentjs);
     }
 
 }

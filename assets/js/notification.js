@@ -17,11 +17,11 @@
             $elem.fadeIn();
             setTimeout(function(){
                 $elem.fadeOut();
-            }, 5000)
+            }, 5000);
         }, notification[3]);
     };
 
     tdt_notification_content.forEach((element) => {
         tdt_notification_queue(element);
     });
-})(jQuery);
+}(jQuery));

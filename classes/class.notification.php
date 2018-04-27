@@ -7,11 +7,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 class TDT_Notification {
 
     public $notification_content;
-    public $notification_contentjs;
 
     function __construct(){
         $this->notification_content = $this->get_notification_content();
-        $this->notification_contentjs = '';
     }
 
     public function init() {
@@ -46,6 +44,7 @@ class TDT_Notification {
     }
 
     public function inline_scripts() {
+        $contentJS = '';
         if($this->notification_content != false){
             foreach($this->notification_content as $notification){
                 if((list($name, $location, $timespan, $delay) = array_pad(explode('|', $notification, 4), 4, null)) == true){
@@ -60,11 +59,11 @@ class TDT_Notification {
                     $name = empty($name) ? "Ẩn danh" : $name;
                     $timespan = empty($timespan) ? "Vừa mới đây" : $timespan;
 
-                    $this->notification_contentjs .= sprintf('["%s", "%s", "%s", %d],', $name, $location, $timespan, $delay);
+                    $contentJS .= sprintf('["%s", "%s", "%s", %d],', $name, $location, $timespan, $delay);
                 }
             }
         }
-        printf('<script>const tdt_notification_content = [%s];</script>', $this->notification_contentjs);
+        printf('<script>const tdt_notification_content = [%s];</script>', $contentJS);
     }
 
 }

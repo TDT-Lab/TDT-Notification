@@ -58,7 +58,7 @@ class TDT_Notification_Admin {
     }
     
     public function render_tdt_notification_content(){
-        echo '<textarea cols="70" rows="10" name="tdt_notification_content">' . get_option( 'tdt_notification_content' ) . '</textarea>';
+        echo sprintf('<textarea cols="70" rows="10" name="tdt_notification_content">%s</textarea>', get_option( 'tdt_notification_content' ));
     }
 
     public function admin_menu() {

@@ -49,6 +49,17 @@ class TDT_Notification {
 		if($this->notification_content != false){
 			foreach($this->notification_content as $notification){
 				if((list($name, $location, $timespan, $delay) = array_pad(explode('|', $notification, 4), 4, null)) == true){
+
+					// Remove unexpected new line cause "Invalid or unexpected token" at frontend
+					$name = str_replace(["\r", "\n"], '', $name);
+					$location = str_replace(["\r", "\n"], '', $location);
+					$timespan = str_replace(["\r", "\n"], '', $timespan);
+					$delay = str_replace(["\r", "\n"], '', $delay);
+					
+					// Pre-process
+					$name = empty($name) ? "Ẩn danh" : $name;
+					$timespan = empty($timespan) ? "Vừa mới đây" : $timespan;
+
 					$this->notification_contentjs .= sprintf('["%s", "%s", "%s", %d],', $name, $location, $timespan, $delay);
 				}
 			}

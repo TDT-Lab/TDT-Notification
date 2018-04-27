@@ -26,4 +26,4 @@ define( 'TDT_NOTIFICATION_PLUGIN_PATH', trailingslashit( plugin_dir_path( __FILE
 define( 'TDT_NOTIFICATION_PLUGIN_DIR', trailingslashit( plugin_dir_url( __FILE__ ) ) );
 
 require TDT_NOTIFICATION_PLUGIN_PATH . 'classes/class.notification.php';
-require TDT_NOTIFICATION_PLUGIN_DIR . 'classes/class.notification.admin.php';
+require TDT_NOTIFICATION_PLUGIN_PATH . 'classes/class.notification.admin.php';

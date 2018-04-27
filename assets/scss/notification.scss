@@ -1,0 +1,23 @@
+.tdt-notification {
+
+    position: fixed;
+    padding: 15px;
+    bottom: 4%;
+    left: 3%;
+
+    z-index: 9999;
+
+    background: #27ae60;
+    border-radius: 4px;
+
+    color: #fff;
+
+    .customer-name {
+        font-weight: bold;
+    }
+
+    .customer-loc {
+        font-weight: bold;
+    }
+
+}

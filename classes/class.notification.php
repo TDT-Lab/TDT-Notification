@@ -6,21 +6,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class TDT_Notification {
 
-    function __construct(){
+	public $notification_content;
+	public $notification_contentjs;
 
-    }
+    function __construct(){
+		$this->notification_content = $this->get_notification_content();
+		$this->notification_contentjs = '';
+	}
 
     public function init() {
-
+		if ( get_option( 'tdt_notification_disable' ) == false ) {
+			add_action( 'wp_enqueue_scripts', array( $this, 'load_scripts' ), 0 );
+			add_action( 'wp_footer', array( $this, 'inline_scripts' ), 1 );
+		}
     }
 
     public function load_scripts(){
         wp_enqueue_script(
 			'tdt-notification',
-			TDT_NOTIFICATION_PLUGIN_DIR . 'assets/js/notification.min.js',
+			TDT_NOTIFICATION_PLUGIN_DIR . 'assets/js/notification.js',
 			'',
 			null,
-			false
+			true
 		);
 		wp_enqueue_style(
 			'tdt-notification',
@@ -29,10 +36,24 @@ class TDT_Notification {
 			null,
 			false
 		);
-    }
+	}
+	
+	public function get_notification_content(){
+		if(($temp = get_option('tdt_notification_content', false)) === false || empty($temp)){
+			return false; // Not exists
+		}
+		return explode("\n", $temp);
+	}
 
     public function inline_scripts() {
-		echo '<script>document.getElementsByTagName("body")[0].className = document.getElementsByTagName("body")[0].className.replace("no-js", "js");</script>';
+		if($this->notification_content != false){
+			foreach($this->notification_content as $notification){
+				if((list($name, $location, $timespan, $delay) = array_pad(explode('|', $notification, 4), 4, null)) == true){
+					$this->notification_contentjs .= sprintf('["%s", "%s", "%s", %d],', $name, $location, $timespan, $delay);
+				}
+			}
+		}
+		printf('<script>const TDT_Notification_Content = [%s];</script>', $this->notification_contentjs);
 	}
 
 }

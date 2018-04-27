@@ -10,7 +10,16 @@ class TDT_Notification_Admin {
         add_action(
 			'admin_menu',
 			array( $this, 'admin_menu' )
+        );
+
+        add_action(
+			'admin_init',
+			array( $this, 'init' )
 		);
+    }
+
+    public function init(){
+        $this->setting_fields();
     }
 
     public function setting_fields(){
@@ -48,13 +57,8 @@ class TDT_Notification_Admin {
         echo '<input type="checkbox" name="tdt_notification_disable" value="1" ' . checked( 1, get_option( 'tdt_notification_disable' ), false ) . ' />';
     }
     
-    public function render_tdt_notification_enable_for_advanced(){
-        echo '<textarea style="width: 100%" name="tdt_notification_content" value="' . get_option( 'tdt_notification_content' ) . '" />';
-    }
-
-    public function get_notification_content(){
-        // $raw = get_option( 'tdt_notification_content' );
-        
+    public function render_tdt_notification_content(){
+        echo '<textarea cols="70" rows="10" name="tdt_notification_content">' . get_option( 'tdt_notification_content' ) . '</textarea>';
     }
 
     public function admin_menu() {
@@ -67,10 +71,31 @@ class TDT_Notification_Admin {
 			array( $this, 'show_options' )
 		);
 	}
+	
+	public function disabled_notice() {
+		if ( get_option( 'tdt_notification_disable' ) ) {
+			echo '<div class="error"><p>TDT Notification <strong>currently disabled</strong> so all your changes might not affected.</p></div>';
+		}
+	}
+    
+    public function show_options() {
+	    ?>
+		<div class="wrap">
+			<h1>TDT Notification Settings</h1>
+			<?php $this->disabled_notice(); ?>
+			<form method="POST" action="options.php">
+				<?php
+				do_settings_sections( 'tdt-notification' );
+				settings_fields( 'tdt-notification-settings' );
+				submit_button();
+				?>
+			</form>
+		</div>
+	    <?php
+	}
 
 }
 
 if ( is_admin() ) {
 	$notification_admin = new TDT_Notification_Admin();
-	register_activation_hook( __FILE__, array( $notification_admin, 'install' ) );
 }

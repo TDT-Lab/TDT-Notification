@@ -19,7 +19,7 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+    exit;
 }
 
 define( 'TDT_NOTIFICATION_PLUGIN_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );

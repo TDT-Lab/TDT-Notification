@@ -15,6 +15,7 @@ class TDT_Notification {
     public function init() {
         if ( get_option( 'tdt_notification_disable' ) == false ) {
             add_action( 'wp_enqueue_scripts', array( $this, 'load_scripts' ), 0 );
+            add_action( 'wp_head', array( $this, 'inline_styles' ), 99 );
             add_action( 'wp_footer', array( $this, 'inline_scripts' ), 1 );
         }
     }
@@ -43,7 +44,16 @@ class TDT_Notification {
         return explode("\n", $temp);
     }
 
-    public function inline_scripts() {
+    public function inline_styles(){
+        $background_color = get_option('tdt_notification_background_color');
+        $text_color = get_option('tdt_notification_text_color');
+        $image = get_option('tdt_notification_image');
+
+        printf('<style>.tdt-notification { background-color: %s; color: %s; }
+                        .tdt-notification-image { background-image: url("%s") }</style>', $background_color, $text_color, $image);
+    }
+
+    public function inline_scripts(){
         $contentJS = '';
         if($this->notification_content != false){
             foreach($this->notification_content as $notification){

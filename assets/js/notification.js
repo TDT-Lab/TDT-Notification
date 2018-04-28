@@ -1,10 +1,13 @@
 (function($){
 
     const tdt_notification_create_element = function(args){
-        var $tempElement = $("<div/>");
+        let $tempElement = $("<div/>");
         $tempElement.attr("class", "tdt-notification");
         $tempElement.css("display", "none");
-        $tempElement.html(args[0] + " ở " + args[1] + " vừa đặt mua");
+
+        $tempElement.html('<div class="tdt-notification-image"></div>' + 
+                            '<div class="tdt-notification-content"><strong>' + args[0] + "</strong> ở <strong>" + args[1] + "</strong> vừa đặt mua<time>" + args[2] + "</time></div>");
+
         return $tempElement;
     };
 

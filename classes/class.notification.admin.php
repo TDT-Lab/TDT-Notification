@@ -107,8 +107,7 @@ class TDT_Notification_Admin {
     }
     
     public function render_tdt_notification_content(){
-        echo sprintf('<textarea cols="70" rows="10" name="tdt_notification_content">%s</textarea>
-                      <p>Format: Customer name | Location | Timespan | Delay</p>', get_option( 'tdt_notification_content' ));
+        echo sprintf('<textarea cols="70" rows="10" name="tdt_notification_content">%s</textarea><p>Format: Customer name | Location | Timespan | Delay</p>', get_option( 'tdt_notification_content', '' ));
     }
 
     public function render_tdt_notification_image(){
@@ -157,29 +156,25 @@ class TDT_Notification_Admin {
             </form>
         </div>
         <script type="text/javascript">
-            jQuery(document).ready(function($){
-                $('#tdt_notification_background_color').wpColorPicker();
-                $('#tdt_notification_text_color').wpColorPicker();
+            (function($){
+                $(function () {
+                    $('#tdt_notification_background_color').wpColorPicker();
+                    $('#tdt_notification_text_color').wpColorPicker();
 
-                $('#upload-btn').click(function(e) {
-                    e.preventDefault();
-                    var image = wp.media({ 
-                        title: 'Upload Image',
-                        // mutiple: true if you want to upload multiple files at once
-                        multiple: false
-                    }).open()
-                    .on('select', function(e){
-                        // This will return the selected image from the Media Uploader, the result is an object
-                        var uploaded_image = image.state().get('selection').first();
-                        // We convert uploaded_image to a JSON object to make accessing it easier
-                        // Output to the console uploaded_image
-                        console.log(uploaded_image);
-                        var image_url = uploaded_image.toJSON().url;
-                        // Let's assign the url value to the input field
-                        $('#tdt_notification_image').val(image_url);
+                    $('#upload-btn').click(function(e) {
+                        e.preventDefault();
+                        var image = wp.media({ 
+                            title: 'Upload Image',
+                            multiple: false
+                        }).open()
+                        .on('select', function(e){
+                            var uploaded_image = image.state().get('selection').first();
+                            var image_url = uploaded_image.toJSON().url;
+                            $('#tdt_notification_image').val(image_url);
+                        });
                     });
                 });
-            });
+            }(jQuery));
         </script>
         <?php
     }

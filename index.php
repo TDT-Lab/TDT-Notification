@@ -9,8 +9,8 @@
  *
  * Plugin Name: TDT Notification
  * Plugin URI:  https://duonganhtuan.com/tdt-notification/
- * Description: Save tons of bandwidth and make website load faster
- * Version:     1.1.9
+ * Description: Show attractive notification
+ * Version:     1.0.0
  * Author:      Anh Tuan
  * Author URI:  https://duonganhtuan.com
  * Text Domain: tdt-notification

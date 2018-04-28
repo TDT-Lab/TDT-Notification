@@ -59,6 +59,10 @@ class TDT_Notification {
             foreach($this->notification_content as $notification){
                 if((list($name, $location, $timespan, $delay) = array_pad(explode('|', $notification, 4), 4, null)) == true){
 
+                    $name = esc_html($name);
+                    $location = esc_html($location);
+                    $timespan = esc_html($timespan);
+
                     // Remove unexpected new line cause "Invalid or unexpected token" at frontend
                     $name = str_replace(["\r", "\n"], '', $name);
                     $location = str_replace(["\r", "\n"], '', $location);

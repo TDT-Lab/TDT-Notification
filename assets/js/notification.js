@@ -5,8 +5,7 @@
         $tempElement.attr("class", "tdt-notification");
         $tempElement.css("display", "none");
 
-        $tempElement.html('<div class="tdt-notification-image"></div>' + 
-                            '<div class="tdt-notification-content"><strong>' + args[0] + "</strong> ở <strong>" + args[1] + "</strong> vừa đặt mua<time>" + args[2] + "</time></div>");
+        $tempElement.html("<div class=\"tdt-notification-image\"></div>" + "<div class=\"tdt-notification-content\"><strong>" + args[0] + "</strong> ở <strong>" + args[1] + "</strong> vừa đặt mua<time>" + args[2] + "</time></div>");
 
         return $tempElement;
     };
